@@ -104,7 +104,7 @@ init();
     // Assign the value of the dropdown menu option to a variable
     var dataset = dropdownMenu.property("value");
   
-    DemoPanel(dataset)
-    visualizations(dataset)
+    DemoPanel1(dataset)
+    visualizations2(dataset)
   };
    
