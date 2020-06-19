@@ -57,7 +57,7 @@ function buildCharts(sample) {
   
    // Build the BAR plot
    var barValue = result.sample_values.slice(0,10).reverse();
-   var otu_ids_bar = result.otu_ids.slice(0,10).map((item => "ITU " + item)).reverse(); 
+   var otu_ids_bar = result.otu_ids.slice(0,10).map((item => "OTU " + item)).reverse(); 
    var otu_labels_bar = result.otu_labels.slice(0,10).reverse();
   
    // create trace variable for the plot
