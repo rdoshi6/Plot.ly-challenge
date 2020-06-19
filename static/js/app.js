@@ -1,27 +1,4 @@
-// Function created with the D3 library to read in samples.json
-function buildMetaData(sample){
-
-    d3.json("./data/samples.json").then(function(data){
-    
-      // Use d3 to select the panel with id of `#sample-metadata` and default first id
-          var sample_metadata = d3.select("#sample-metadata");
-          var metadata = data.metadata;
-          var result = metadata.filter(sampleobj => sampleobj.id==sample)[0]
-      
-      // clearong any existing metadata
-          sample_metadata.text("");
-          
-      // Use `Object.entries` to add each key and value pair to the panel
-          Object.entries(result).forEach(([key, value]) => {
-    
-            var row = sample_metadata.append("p");
-            row.text(`${key}: ${value}`);
-            console.log(result);
-          })
-        });
-    }
-
-    // Define the function to build the charts
+// Define the function to build the charts
 function buildCharts(sample) {
   
     // Fetch the sample data for the plots
@@ -79,6 +56,29 @@ function buildCharts(sample) {
         Plotly.newPlot('bubble', data, layout)
   
     });
+  }
+
+  // Function created with the D3 library to read in samples.json
+function buildMetaData(sample){
+
+  d3.json("./data/samples.json").then(function(data){
+  
+    // Use d3 to select the panel with id of `#sample-metadata` and default first id
+        var sample_metadata = d3.select("#sample-metadata");
+        var metadata = data.metadata;
+        var result = metadata.filter(sampleobj => sampleobj.id==sample)[0]
+    
+    // clearong any existing metadata
+        sample_metadata.text("");
+        
+    // Use `Object.entries` to add each key and value pair to the panel
+        Object.entries(result).forEach(([key, value]) => {
+  
+          var row = sample_metadata.append("p");
+          row.text(`${key}: ${value}`);
+          console.log(result);
+        })
+      });
   }
   
  // Define the function to initialize the data
