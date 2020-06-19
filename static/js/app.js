@@ -94,8 +94,8 @@ function init(){
 init();
       
   // Function for new Subject
-  d3.selectAll("#selDataset").on("change", updatePlotly);
-  function updatePlotly() {
+  d3.selectAll("#selDataset").on("change", NewSubject);
+  function NewSubject() {
   
     //dropdown menu
     var dropdownMenu = d3.select("#selDataset");
