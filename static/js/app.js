@@ -1,12 +1,12 @@
 //Function for the bar and bubble chart
 function visualizations(sample) {
   
-    // Use the D3 library to read in samples.json.
+    // D3 library to read in samples.json.
     d3.json("./data/samples.json").then(function(data){
       const samples = data.samples;
       const result = samples.filter(sampleobj => sampleobj.id==sample)[0]
   
-    //Bar Chart
+    //Bar Chart - top 10 values
       var barValue = result.sample_values.slice(0,10).reverse();
       var otu_ids_bar = result.otu_ids.slice(0,10).map((item => "OTU " + item)).reverse(); 
       var otu_labels_bar = result.otu_labels.slice(0,10).reverse();
@@ -31,8 +31,8 @@ function visualizations(sample) {
       //Bubble Chart
         var xValues = result.otu_ids;
         var yValues = result.sample_values;
-        var mSize = result.sample_values;
-        var mClrs = result.otu_ids;
+        var Size = result.sample_values;
+        var B_Colors = result.otu_ids;
         var tValues = result.otu_values;
         
         var trace_bubble = {
@@ -41,8 +41,8 @@ function visualizations(sample) {
           text: tValues,
           mode: 'markers',
           marker: {
-            size: mSize,
-            color: mClrs
+            size: Size,
+            color: B_Colors
           }
         };
     
@@ -61,15 +61,14 @@ function DemoPanel(sample){
 
   d3.json("./data/samples.json").then(function(data){
   
-    // Use d3 to select the panel with id of `#sample-metadata` and default first id
         var sample_metadata = d3.select("#sample-metadata");
         var metadata = data.metadata;
         var result = metadata.filter(sampleobj => sampleobj.id==sample)[0]
     
-    // clearong any existing metadata
+    // clearing any existing metadata
         sample_metadata.text("");
         
-    // Use `Object.entries` to add each key and value pair to the panel
+    // `Object.entries` to add each key and value pair to the panel
         Object.entries(result).forEach(([key, value]) => {
   
           var row = sample_metadata.append("p");
@@ -79,7 +78,7 @@ function DemoPanel(sample){
       });
   }
   
- // Define the function to initialize the data
+ // initialize the data
 function init(){
       d3.json("./data/samples.json").then(function(data){
       var selector = d3.select("#selDataset");
@@ -94,17 +93,15 @@ function init(){
   
 init();
       
-  // Define the function when a new ID is se
-  d3.selectAll("#selDataset").on("change", updatePlotly);
-  function updatePlotly() {
+  // Function for new Subject
+  d3.selectAll("#selDataset").on("change", NewSubject);
+  function NewSubject() {
   
-    // Use D3 to select the dropdown menu
+    //dropdown menu
     var dropdownMenu = d3.select("#selDataset");
-  
-    // Assign the value of the dropdown menu option to a variable
     var dataset = dropdownMenu.property("value");
   
-    DemoPanel1(dataset)
-    visualizations2(dataset)
+    DemoPanel(dataset)
+    visualizations(dataset)
   };
    
