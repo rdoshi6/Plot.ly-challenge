@@ -1,4 +1,4 @@
-// Define the function to build the data from samples.json
+// Function created with the D3 library to read in samples.json
 function buildMetaData(sample){
 
     // Function that builds the metadata panel usind d3
@@ -9,8 +9,8 @@ function buildMetaData(sample){
           var metadata = data.metadata;
           var result = metadata.filter(sampleobj => sampleobj.id==sample)[0]
       
-      // Use `.html("") to clear any existing metadata
-          sample_metadata.html("");
+      // clearong any existing metadata
+          sample_metadata.text("");
           
       // Use `Object.entries` to add each key and value pair to the panel
           Object.entries(result).forEach(([key, value]) => {
@@ -72,28 +72,26 @@ function buildCharts(sample) {
    // Create data variable and display
    var data_bar = [trace_bar];
    var layout_bar = {
-     title: "Top 10 OTUs",
      margin: {
        l: 100,
      },
-     xaxis: {title: "Quantity"},
    };  
   
    Plotly.newPlot("bar", data_bar, layout_bar)
   
-  // Build the PIE plot
-  var pieValue = result.sample_values.slice(0, 10);
-  var pieLabel = result.otu_ids.slice(0, 10);
-  var pieHover = result.otu_labels.slice(0, 10);
+ // // Build the PIE plot
+// var pieValue = result.sample_values.slice(0, 10);
+//  var pieLabel = result.otu_ids.slice(0, 10);
+//  var pieHover = result.otu_labels.slice(0, 10);
   
-  var data = [{
-    values: pieValue,
-    labels: pieLabel,
-    hovertext: pieHover,
-    type: 'pie'
-  }];
+//  var data = [{
+//    values: pieValue,
+//    labels: pieLabel,
+//    hovertext: pieHover,
+ //   type: 'pie'
+ // }];
   
-  Plotly.newPlot('pie', data);
+ // Plotly.newPlot('pie', data);
     });
   }
   
