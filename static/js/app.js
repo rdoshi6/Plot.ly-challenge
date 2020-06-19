@@ -1,7 +1,6 @@
 // Function created with the D3 library to read in samples.json
 function buildMetaData(sample){
 
-    // Function that builds the metadata panel usind d3
     d3.json("./data/samples.json").then(function(data){
     
       // Use d3 to select the panel with id of `#sample-metadata` and default first id
@@ -30,7 +29,31 @@ function buildCharts(sample) {
       var samples = data.samples;
       var result = samples.filter(sampleobj => sampleobj.id==sample)[0]
   
-    // Build the BUBBLE plot
+    // Build the BAR plot
+      var barValue = result.sample_values.slice(0,10).reverse();
+      var otu_ids_bar = result.otu_ids.slice(0,10).map((item => "OTU " + item)).reverse(); 
+      var otu_labels_bar = result.otu_labels.slice(0,10).reverse();
+  
+   // create trace variable for the plot
+   var trace_bar = {
+     x: barValue,
+     y: otu_ids_bar,
+     text: otu_labels_bar,
+     type: 'bar',
+     orientation: "h",
+   };
+  
+      // Create data variable and display
+      var data_bar = [trace_bar];
+      var layout_bar = {
+      margin: {
+          l: 100,
+        },
+      };  
+  
+      Plotly.newPlot("bar", data_bar, layout_bar)
+    
+      // Build the BUBBLE plot
         var xValues = result.otu_ids;
         var yValues = result.sample_values;
         var mSize = result.sample_values;
@@ -55,43 +78,6 @@ function buildCharts(sample) {
     
         Plotly.newPlot('bubble', data, layout)
   
-   // Build the BAR plot
-   var barValue = result.sample_values.slice(0,10).reverse();
-   var otu_ids_bar = result.otu_ids.slice(0,10).map((item => "OTU " + item)).reverse(); 
-   var otu_labels_bar = result.otu_labels.slice(0,10).reverse();
-  
-   // create trace variable for the plot
-   var trace_bar = {
-     x: barValue,
-     y: otu_ids_bar,
-     text: otu_labels_bar,
-     type: 'bar',
-     orientation: "h",
-   };
-  
-   // Create data variable and display
-   var data_bar = [trace_bar];
-   var layout_bar = {
-     margin: {
-       l: 100,
-     },
-   };  
-  
-   Plotly.newPlot("bar", data_bar, layout_bar)
-  
- // // Build the PIE plot
-// var pieValue = result.sample_values.slice(0, 10);
-//  var pieLabel = result.otu_ids.slice(0, 10);
-//  var pieHover = result.otu_labels.slice(0, 10);
-  
-//  var data = [{
-//    values: pieValue,
-//    labels: pieLabel,
-//    hovertext: pieHover,
- //   type: 'pie'
- // }];
-  
- // Plotly.newPlot('pie', data);
     });
   }
   
