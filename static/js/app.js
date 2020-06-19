@@ -66,7 +66,7 @@ function DemoPanel(sample){
         var result = metadata.filter(sampleobj => sampleobj.id==sample)[0]
     
     // clearing any existing metadata
-        sample_metadata.text("");
+        sample_metadata.html("");
         
     // `Object.entries` to add each key and value pair to the panel
         Object.entries(result).forEach(([key, value]) => {
@@ -94,8 +94,8 @@ function init(){
 init();
       
   // Function for new Subject
-  d3.selectAll("#selDataset").on("change", NewSubject);
-  function NewSubject() {
+  d3.selectAll("#selDataset").on("change", updatePlotly);
+  function updatePlotly() {
   
     //dropdown menu
     var dropdownMenu = d3.select("#selDataset");
